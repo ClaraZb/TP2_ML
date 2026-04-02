@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 def one_hot_encoder(df):
     """Applies one hot encoder to the feature "escuela". We only keep n - 1 features, n being the
     amount of different shcools. """
-    letters = ["A", "B", "C", "D", "E", "F", "G", "H"]
+    letters = ["A", "B", "C", "D", "E", "F", "G"] #no me quedo con el H
     for i in range(len(letters)):
         df.insert(i, letters[i], (df["escuela"] == letters[i]).astype(int)) #position, name, info
     df = df.drop(columns=["escuela"]) #we don't need it anymore
@@ -41,9 +41,9 @@ def fix_data(df):
     df["semestre"] = df["semestre"].map(dict_semesters)
 
     dict_performance_bin = {"Excelente": 1, "Bueno": 1, "Regular": 1, "Insuficiente": 0}
-    dict_performance_mult = {"Excelente": 4, "Bueno": 3, "Regular": 2, "Insuficiente": 1}
-    df["rendimiento_bin"] = df["rendimiento_bin"].map(dict_performance_bin)
-    df["rendimiento_mult"] = df["rendimiento_mult"].map(dict_performance_mult)
-    df.drop(columns = "rendimiento")
+    dict_performance_mult = {"Excelente": 3, "Bueno": 2, "Regular": 1, "Insuficiente": 0}
+    df["rendimiento_bin"] = df["rendimiento"].map(dict_performance_bin)
+    df["rendimiento_mult"] = df["rendimiento"].map(dict_performance_mult)
+    df = df.drop(columns = "rendimiento")
     #elimino datos corrompidosjjjjjj
     return df
